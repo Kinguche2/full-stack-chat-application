@@ -23,6 +23,8 @@ function App() {
           path="/signup"
           element={authUser ? <Navigate to="/" /> : <SignUp />}
         />
+        {/* ✅ Catch-all route: Redirects undefined routes to login */}
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
       <Toaster />
     </div>
