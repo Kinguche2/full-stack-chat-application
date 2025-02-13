@@ -18,7 +18,7 @@ import { SignInDto } from './dto/sign-in-Dto';
 import { Response, Request } from 'express';
 import { error } from 'console';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

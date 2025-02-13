@@ -13,7 +13,7 @@ import { messageDto } from './dto/message-dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { Types } from 'mongoose';
 
-@Controller('messages')
+@Controller('api/messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 

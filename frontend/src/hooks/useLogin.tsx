@@ -53,7 +53,7 @@ const handleInputErrors = async ({ email, password }: any) => {
 import { useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { toast } from "react-hot-toast";
-import { baseUrl } from "../utils/baseUrl";
+//import { baseUrl } from "../utils/baseUrl";
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -64,7 +64,7 @@ const useLogin = () => {
     if (!success) return;
     setLoading(true);
     try {
-      const res = await fetch(`${baseUrl}/auth/login`, {
+      const res = await fetch(`/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
