@@ -15,7 +15,7 @@ export const useLogout = () => {
     try {
       localStorage.removeItem("chat-app");
       Cookies.remove("token"); // Remove JWT token from cookies
-      navigate("/login");
+      navigate("/api/login");
       setAuthUser(null);
     } catch (error: any) {
       toast.error(error.message);

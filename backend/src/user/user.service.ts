@@ -21,13 +21,18 @@ export class UserService {
 
   @UseGuards(AuthGuard)
   async findAll(@Request() request): Promise<UserDocument[]> {
-    const loggedInUserId = request.user._id;
-    const users = await this.userModel
-      .find({ _id: { $ne: loggedInUserId } })
-      .select('-password');
-    if (users.length < 0)
-      throw new NotFoundException('There are currently no users');
-    return users;
+    try {
+      const loggedInUserId = request.user._id;
+      console.log(`The logged in User ${loggedInUserId}`);
+      const users = await this.userModel
+        .find({ _id: { $ne: loggedInUserId } })
+        .select('-password');
+      if (users.length < 0)
+        throw new NotFoundException('There are currently no users');
+      return users;
+    } catch (error) {
+      console.log(error);
+    }
   }
   async findOne(id: string) {
     return this.userModel

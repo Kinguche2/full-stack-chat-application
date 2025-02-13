@@ -25,17 +25,17 @@ export class AuthController {
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
   async signUp(@Body() createUser: CreateUserDto, @Res() res: Response) {
-    const createdUser = await this.authService.create(createUser);
+    const signInUser = await this.authService.create(createUser);
     const token = await this.authService.generateToken(
-      createdUser.userId,
-      createdUser.email,
+      signInUser.userId,
+      signInUser.email,
     );
 
     res.cookie('token', token, {
       maxAge: 15 * 24 * 60 * 60 * 1000, // MS
       httpOnly: true,
     });
-    return res.send({ createdUser, token });
+    return res.send({ signInUser, token });
   }
 
   @HttpCode(HttpStatus.OK)
@@ -50,6 +50,7 @@ export class AuthController {
       maxAge: 15 * 24 * 60 * 60 * 1000, // MS
       httpOnly: true,
     });
+    console.log(signInUser);
     return res.send({ signInUser, token });
   }
 

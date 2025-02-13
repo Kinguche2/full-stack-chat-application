@@ -27,7 +27,7 @@ const useSignUp = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/auth", {
+      const res = await fetch("/api/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,6 +35,7 @@ const useSignUp = () => {
         body: JSON.stringify({ firstName, lastName, email, password, gender }),
       });
       const data = await res.json();
+      console.log(data);
       if (data.error) {
         throw new Error(data.message);
       }

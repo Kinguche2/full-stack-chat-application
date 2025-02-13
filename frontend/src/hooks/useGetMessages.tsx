@@ -14,17 +14,15 @@ const useGetMessages = () => {
     const getMessages = async () => {
       setLoading(true);
       try {
-        const res = await fetch(
-          `http://localhost:5000/messages/${selectedConversation?._id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authUser?.token}`,
-            },
-          }
-        );
+        const res = await fetch(`/api/messages/${selectedConversation?._id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authUser?.token}`,
+          },
+        });
         const data = await res.json();
+        console.log(authUser?.token);
         if (data.statusCode === 401) {
           logout();
         }

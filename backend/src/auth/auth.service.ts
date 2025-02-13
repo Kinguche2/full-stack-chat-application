@@ -27,9 +27,11 @@ export class AuthService {
   async create(CreateUserDto: CreateUserDto) {
     const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${CreateUserDto.firstName}`;
     const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${CreateUserDto.firstName}`;
-    const user = await this.userModel.findOne({ email: CreateUserDto.email });
-    if (user) throw new ConflictException('User already exists');
-    const createdUser = await this.userModel.create({
+    const userExists = await this.userModel.findOne({
+      email: CreateUserDto.email,
+    });
+    if (userExists) throw new ConflictException('User already exists');
+    const user = await this.userModel.create({
       lastName: CreateUserDto.lastName,
       firstName: CreateUserDto.firstName,
       email: CreateUserDto.email,
@@ -40,12 +42,12 @@ export class AuthService {
     });
 
     return {
-      userId: createdUser._id,
-      firstName: createdUser.firstName,
-      lastName: createdUser.lastName,
-      profileImage: createdUser.profileImage,
-      gender: createdUser.gender,
-      email: createdUser.email,
+      userId: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      profileImage: user.profileImage,
+      gender: user.gender,
+      email: user.email,
     };
   }
 
@@ -83,3 +85,28 @@ export class AuthService {
       });
   }
 }
+
+/* {
+    "createdUser": {
+        "userId": "67ad9ee6e52abfa2be883436",
+        "firstName": "New",
+        "lastName": "Person",
+        "profileImage": "https://avatar.iran.liara.run/public/girl?username=New",
+        "gender": "female",
+        "email": "new@g.com"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YWQ5ZWU2ZTUyYWJmYTJiZTg4MzQzNiIsImVtYWlsIjoibmV3QGcuY29tIiwiaWF0IjoxNzM5NDMxNjU1LCJleHAiOjE3NDIwMjM2NTV9.WgH1eVOewWZKPp0_t1PiOdRQkCVCpl-_WDAcxGWyi2M"
+} */
+
+/* {
+    "signInUser": {
+        "userId": "67ad9ee6e52abfa2be883436",
+        "firstName": "New",
+        "lastName": "Person",
+        "profileImage": "https://avatar.iran.liara.run/public/girl?username=New",
+        "gender": "female",
+        "email": "new@g.com"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YWQ5ZWU2ZTUyYWJmYTJiZTg4MzQzNiIsImVtYWlsIjoibmV3QGcuY29tIiwiaWF0IjoxNzM5NDMxODEyLCJleHAiOjE3NDIwMjM4MTJ9.Qygly-S98hZKtOLZv0USgrij-wd_FYCU5uSGYSw0Xv0"
+}
+ */
