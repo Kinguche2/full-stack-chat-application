@@ -54,7 +54,6 @@ export const SocketContextProvider: React.FC<SocketProviderProps> = ({
       });
 
       socket.on("getOnlineUsers", (data: { onlineUsers: string[] }) => {
-        console.log("Received online users:", data.onlineUsers);
         setOnlineUsers(data.onlineUsers);
       });
 
