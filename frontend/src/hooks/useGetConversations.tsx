@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { useAuthContext } from "../context/AuthContext";
 import Conversation from "../Dto/conversation";
 import { useLogout } from "./useLogout";
-//import { baseUrl } from "../utils/baseUrl";
+import { baseUrl } from "../utils/baseUrl";
 
 const useGetConversations = () => {
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ const useGetConversations = () => {
     const getConversation = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/users`, {
+        const res = await fetch(`${baseUrl}/users`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
