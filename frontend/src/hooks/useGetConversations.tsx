@@ -24,7 +24,6 @@ const useGetConversations = () => {
         });
 
         const data = await res.json();
-        console.log(data);
         if (data.statusCode === 401) {
           logout();
         }
@@ -33,7 +32,7 @@ const useGetConversations = () => {
         }
         setConversations(data);
       } catch (error: any) {
-        toast.error(`The error is from me ${error.message}`);
+        toast.error(error.message);
       } finally {
         setLoading(false);
       }

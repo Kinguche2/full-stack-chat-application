@@ -22,7 +22,6 @@ const useGetMessages = () => {
           },
         });
         const data = await res.json();
-        console.log(authUser?.token);
         if (data.statusCode === 401) {
           logout();
         }
